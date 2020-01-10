@@ -24,7 +24,6 @@ class NlpResultView(APIView):
             raise Http404
 
     def get(self, request):
-        print(self.permission_classes)
         result = self.get_result()
         serializer = ResultSerializer(result)
         return Response(serializer.data)
