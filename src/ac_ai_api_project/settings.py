@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django_extensions',
 
     # project apps
-    'nlp',
+    'api',
     'ac_ai_api_auth',
     'web',
 
@@ -166,7 +166,5 @@ REST_FRAMEWORK = {
     # ],
 
     # TODO: checkout what happens if the server turns off, we need to somehow keep track of user requests
-    'DEFAULT_THROTTLE_RATES': {
-        'user': '1/day'
-    }
+    # TODO: also decide the rate
 }

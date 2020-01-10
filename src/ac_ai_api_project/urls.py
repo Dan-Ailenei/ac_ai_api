@@ -21,6 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ac_ai_api_auth.urls')),
     path('', include('web.urls')),
-
-    path('', include('nlp.urls')),
+    path('', include('api.urls')),
 ]
