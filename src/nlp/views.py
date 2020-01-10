@@ -1,20 +1,20 @@
 from django.http import Http404
-from django.shortcuts import render
-from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
+from ac_ai_api_auth.permisions import PaidForServiceOrHasRequestsLeft
 from nlp.algorithms.nlp import compute_result
 from nlp.models import Result
 from nlp.serializers import ResultSerializer
 
 
-def index(request):
-    return render(request, 'nlp/index.html', {})
-
-
 class NlpResultView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated, PaidForServiceOrHasRequestsLeft]
+    service_name = 'nlp'
+
+    def get_throttles(self):
+        return [UserRateThrottle()]
 
     def get_result(self):
         try:
@@ -24,6 +24,7 @@ class NlpResultView(APIView):
             raise Http404
 
     def get(self, request):
+        print(self.permission_classes)
         result = self.get_result()
         serializer = ResultSerializer(result)
         return Response(serializer.data)

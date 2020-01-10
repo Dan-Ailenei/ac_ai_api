@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% block title %}
     index
@@ -12,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <p>hello</p>
+    <a href="{% url 'ac_ai_api_auth:generate_token' %}">Generate token</a>
 {% endblock %}
 
 

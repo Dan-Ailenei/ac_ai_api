@@ -39,8 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
 
+    # project apps
     'nlp',
     'ac_ai_api_auth',
+    'web',
+
+    # rest_framework apps
     'rest_framework',
     'rest_framework.authtoken',
 ]
@@ -147,11 +151,22 @@ CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
 CELERY_BROKER_TRANSPORT_OPTIONS = {'max_retries': 1}
 
 AUTH_USER_MODEL = "ac_ai_api_auth.AcAiApiUser"
-LOGIN_REDIRECT_URL = "nlp:index"
-LOGOUT_REDIRECT_URL = "nlp:index"
+LOGIN_REDIRECT_URL = "web:index"
+LOGOUT_REDIRECT_URL = "web:index"
+LOGIN_URL = 'ac_ai_api_auth:login'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+
+    # TODO: uncomment this if we decide we don't need DRF browsable api
+    # 'DEFAULT_RENDERER_CLASSES': [
+    #     'rest_framework.renderers.JSONRenderer',
+    # ],
+
+    # TODO: checkout what happens if the server turns off, we need to somehow keep track of user requests
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '1/day'
+    }
 }
