@@ -11,3 +11,6 @@ omit =
     *wsgi.py
     *test/*
     *tests/*
+    *asgi.py
+    *settings.py
+    *migrations/*
