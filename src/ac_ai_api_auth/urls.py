@@ -1,12 +1,18 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
+from rest_framework.authtoken import views as rest_views
 
 app_name = "ac_ai_api_auth"
 
 urlpatterns = [
+    # remove these if you decide not to use GUI
     path('login/',
           LoginView.as_view(redirect_authenticated_user=True,
-                           template_name="ac_ai_api_auth/login.html"),
-          name='login'),
+                            template_name="ac_ai_api_auth/login.html"),
+                            name='login'),
+
     path('logout/', LogoutView.as_view(), name='logout'),
+
+    # TODO: decide if we keep this view or not
+    path('api_token_auth/', rest_views.obtain_auth_token),
 ]

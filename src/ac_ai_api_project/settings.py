@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     'nlp',
     'ac_ai_api_auth',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -147,3 +149,9 @@ CELERY_BROKER_TRANSPORT_OPTIONS = {'max_retries': 1}
 AUTH_USER_MODEL = "ac_ai_api_auth.AcAiApiUser"
 LOGIN_REDIRECT_URL = "nlp:index"
 LOGOUT_REDIRECT_URL = "nlp:index"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
