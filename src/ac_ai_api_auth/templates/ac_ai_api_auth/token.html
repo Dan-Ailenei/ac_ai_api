@@ -7,5 +7,15 @@
 {% block content %}
     USE THIS ONLY ON HTTPS
     <div>Don't share this info!!!</div>
-    <div>Token: {{ token }}</div>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">generate token</button>
+    </form>
+
+    {% if token %}
+        <div>token: {{ token }}</div>
+        <div>Expires on: {{ expiry_date }}</div>
+    {% endif %}
 {% endblock %}

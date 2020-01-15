@@ -1,7 +1,10 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
-from rest_framework.authtoken import views as rest_views
-from . import views
+
+from ac_ai_api_auth import views
+from ac_ai_api_auth.views import ApiLoginView
+from knox import views as knox_views
+
 app_name = "ac_ai_api_auth"
 
 urlpatterns = [
@@ -12,8 +15,9 @@ urlpatterns = [
                             name='login'),
 
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('generate_token/', views.generate_token_view, name='generate_token'),
 
-    # TODO: decide if we keep this view or not
-    path('get_token_auth_api/', rest_views.obtain_auth_token, name='generate_token_api_view'),
-    path('get_token_auth/', views.generate_token_view, name='generate_token'),
+    path('api/auth/login/', ApiLoginView.as_view(), name='knox_login'),
+    path('api/auth/logout/', knox_views.LogoutView.as_view(), name='knox_logout'),
+    path('api/auth/logoutall/', knox_views.LogoutAllView.as_view(), name='knox_logoutall'),
 ]

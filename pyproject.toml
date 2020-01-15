@@ -6,7 +6,6 @@ authors = ["Ailenei Dan <dan.ailenei@rover.com>"]
 
 [tool.poetry.dependencies]
 python = "3.8"
-celery = {version = "*", extras = ["redis"]}
 django = "*"
 django-extensions = "*"
 hunter = "*"
@@ -15,6 +14,7 @@ pytest-cov = "*"
 pytest-django = "*"
 djangorestframework = "^3.11.0"
 ipython = "^7.11.1"
+django-rest-knox = "^4.1.0"
 
 [tool.poetry.dev-dependencies]
 

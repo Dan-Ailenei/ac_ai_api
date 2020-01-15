@@ -1,4 +1,5 @@
 from django.http import Http404
+from knox.auth import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.throttling import UserRateThrottle
@@ -15,12 +16,12 @@ class ApiUserRateThrottle(UserRateThrottle):
 
 class RestrictedApiMixin:
     permission_classes = [IsAuthenticated, PaidForServiceOrHasRequestsLeft]
+    authentication_classes = [TokenAuthentication]
     user_rate_throttle_classes = [ApiUserRateThrottle]
 
     def get_throttles(self):
         if user_paid_for_service(self.request.user, self.service_type):
             return self.get_user_rate_throttles()
-
         return [LimitedRequestsThrottle()]
 
     def get_user_rate_throttles(self):

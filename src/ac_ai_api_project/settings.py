@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
     # rest_framework apps
     'rest_framework',
-    'rest_framework.authtoken',
+    'knox',
 ]
 
 MIDDLEWARE = [
@@ -146,10 +146,6 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'static_files', 'media')
 
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
-CELERY_BROKER_TRANSPORT_OPTIONS = {'max_retries': 1}
-
 AUTH_USER_MODEL = "ac_ai_api_auth.AcAiApiUser"
 LOGIN_REDIRECT_URL = "web:index"
 LOGOUT_REDIRECT_URL = "web:index"
@@ -157,7 +153,7 @@ LOGIN_URL = 'ac_ai_api_auth:login'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'knox.auth.TokenAuthentication',
     ],
 
     # TODO: uncomment this if we decide we don't need DRF browsable api

@@ -9,12 +9,12 @@ class Result:
 
 
 class UserServiceRequestInfo(models.Model):
+    class Meta:
+        unique_together = ['type', 'user']
+
     NLP = 0
     SERVICE_TYPE_CHOICES = ((NLP, 'nlp'),)
 
     number_of_requests = models.IntegerField(default=0)
     user = models.ForeignKey(AcAiApiUser, on_delete=models.CASCADE, related_name='service_info')
     type = models.IntegerField(choices=SERVICE_TYPE_CHOICES)
-
-    class Meta:
-        unique_together = ['type', 'user']
